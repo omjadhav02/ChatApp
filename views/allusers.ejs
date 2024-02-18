@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style> 
+        body{
+            text-align: center;
+            margin: 10px;
+            background-color: rgb(30, 30, 39);
+            color:aliceblue;
+        }
+        .users{
+            display: flex;
+            justify-content: space-between;
+            margin: 5px;
+            border: 1px solid rgb(141, 138, 138);
+            padding: 5px;
+            border-radius: 16px;
+        }
+        .btn{
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Chat with Users</h2>
+    <div class="container">
+        
+        <% for(acc of accs){ %>
+            <% if(acc.username !== userOne.username){ %>
+            <div class="users">
+                <h4><i name="receiver">@<%= acc.username %></i></h4>
+
+                <form method="get" action="/<%= acc._id %>/<%= userOne.username%>" >
+                    <button class="btn btn-outline-primary">Message</button>
+                </form>
+            </div>
+            <%}%>
+        <%} %>
+       
+    </div>
+</body>
+</html>
+
