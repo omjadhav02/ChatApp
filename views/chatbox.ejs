@@ -57,6 +57,7 @@
             
         }
         .input{
+            /* display: flex; */
             padding-left: 10px;
             width: 450px;
             height: 40px;
@@ -68,6 +69,26 @@
             color: aliceblue;
              
         }
+        @media(max-width:480px) {
+           .input{
+            width: 350px;
+            }
+        } 
+        @media(max-width:380px) {
+           .input{
+            width: 280px;
+            }
+        } 
+        @media(max-width:300px) {
+           .input{
+            width: 240px;
+            }
+        } 
+        @media(max-width:260px) {
+           .input{
+            width: 200px;
+            }
+        } 
         .msg-container{
             display: flex;
             justify-content: center;
@@ -81,6 +102,9 @@
         }
         form{
             padding-top: 5px;
+        }
+        .input-button{
+            display: flex;
         }
     </style>
 </head>
@@ -111,9 +135,7 @@
         <div class="msg-container">
             <div class="msgarea">
                 
-                <div>
-                    
-                    
+                <div class="input-btn">
                     <input placeholder="type here" required name="msg" class="input">
                     <button class="btn btn-outline-primary" type="submit">Send</button>
                     <!-- <h2><i class="fa-solid fa-circle-up"></i></h2> -->
