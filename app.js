@@ -46,7 +46,11 @@ const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 
+//ROUTES
 
+app.get("/",(req,res)=>{
+    res.render("root.ejs");
+})
 
 app.get("/login",(req,res)=>{
     res.render("login.ejs");
