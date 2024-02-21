@@ -25,14 +25,9 @@ main().then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
-
-
-
-
-
-
-
 const Acc = require("./models/acc.js");
+
+
 
 //Addtional 
 const path = require("path");
@@ -44,6 +39,8 @@ app.use(express.urlencoded({extended:true}));
 
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
+
+const passwordHash = require("password-hash");
 
 
 //ROUTES
@@ -71,10 +68,12 @@ app.delete("/:id",async(req,res)=>{
 //Home - Sign up
 app.post("/home",async(req,res)=>{
     let {username, email, password} = req.body;
+    let hashedPass = passwordHash.generate(password);
+    // console.log(hashedPass);
     const User = new Acc({
         username: username,
         email: email,
-        password: password,
+        password: hashedPass,
     }); 
 
     User.save().then((data)=>{
@@ -104,8 +103,8 @@ app.post("/home/login",async(req,res)=>{
     try{
         let {username, password} = req.body;
         let userOne = await Acc.findOne({username:username});
-        let pass = await Acc.findOne({password:password});
         if(userOne){
+            let pass = passwordHash.verify(password,userOne.password);
             if(pass){
                 console.log("Login successful")
                 res.render("home.ejs",{userOne});
@@ -124,27 +123,6 @@ app.post("/home/login",async(req,res)=>{
     }
     
 })
-
-// app.post("/home",async(req,res)=>{
-    
-//     let {username, email, password} = req.body;
-//     // let name = await Acc.findOne({username:{username}});
-//     // console.log(name);
-
-//     const User = new Acc({
-//         username: username,
-//         email: email,
-//         password: password,
-//     });
-    
-//     if( User.save().then((data)=>{
-//             // console.log(data);
-//         })
-//     ){
-//         let allAccs = await Acc.find();
-//         res.render("home.ejs",{allAccs})
-//     }
-// })
 
 //All - Users
 app.get("/home/:id",async(req,res)=>{
@@ -191,6 +169,7 @@ app.get("/:id/:from",async(req,res)=>{
             newChat = new Chat({
                 from: from,
                 to: user.username,
+                
             })
             newChat.save().then((data)=>{
                 console.log("New Schema Created!");
@@ -234,54 +213,6 @@ app.patch("/chat/:receiver/:sender",async(req,res)=>{
                 console.log("Chat saved!");
             }).catch((e)=>e);
         }
-        
-    
-        // let receiver = await Acc.findById(id);
-        // console.log(sender);
-        // console.log(receiver.username);
-        
-    
-    // let findBoth = await Chat.findOne({from:sender, to:receiver.username});
-    // console.log("wroking here",findBoth);
-
-    // let findAlterBoth = await Chat.findOne({from:receiver.username, to: sender});
-    // console.log("wrking here",findAlterBoth);
-
-    // let newChat = {};
-
-    //CONDITIONS <-- ALL -->
-
-    // if(findBoth){
-    //     console.log("Schema is Already There!");
-    //     Chat.updateOne({from:sender,to:receiver.username},{$push:{msg: msg}}).then(()=>{
-    //         console.log("Chat saved!");
-    //     }).catch((e)=>e);
-        
-
-    //}
-    // else if(findAlterBoth){
-    //     console.log("Schema is Already There!");
-    //     Chat.updateOne({from:receiver.username,to:sender},{$push:{msg: msg}}).then(()=>{
-    //         console.log("Chat saved!");
-    //     }).catch((e)=>e);
-    // }
-    // else{
-    //     console.log("working");
-    //     // console.log(sender);
-    //     // console.log(receiver.username);
-    //     newChat = new Chat({
-    //         from: sender,
-    //         to: receiver.username,
-    //         msg: [msg],
-
-    //     })
-    //     newChat.save().then((data)=>{
-    //         console.log("New Schema Created!");
-    //     }).catch((e)=>{
-    //         console.log(e);
-    //     })
-    // }
-
     res.redirect(`/${receiver}/${sender}`);
     
 })

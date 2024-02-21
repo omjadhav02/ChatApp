@@ -4,6 +4,7 @@ const chatSchema = new mongoose.Schema({
     from: String,
     to: String,
     msg: Array,
+    
 })
 
 const Chat = mongoose.model("Chat",chatSchema);
@@ -12,7 +13,7 @@ module.exports = Chat;
 // Chat.create({
 //     from: "om",
 //     to: "aditya",
-//     msg: ["hii"],
+//     msg: []
 // })
 // Chat.create({
 //     from: "om",

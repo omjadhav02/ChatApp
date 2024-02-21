@@ -116,15 +116,19 @@
         <div class="text-container">
             <div class="textarea">
                 <h4></h4>
+            
                 <%if(findBoth){ %>
+                    
                     <% for(let i=0; i<=findBoth.msg.length-1; i++){%>
                         <p class="text-msg"><%= findBoth.msg[i] %></p>
                         <% }%>
                     
                <% } %>
+               
                <%if(findAlterBoth){ %>
+                
                 <% for(let i=0; i<=findAlterBoth.msg.length-1; i++){%>
-                    <p><%= findAlterBoth.msg[i] %></p>
+                    <p class="text-msg"><%= findAlterBoth.msg[i] %></p>
                 <% }%>
                 
             <% } %>
