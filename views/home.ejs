@@ -32,7 +32,7 @@
             display: flex;
             justify-content: center;
         }
-        .profile{
+        /* .profile{
             width: 100px;
             height: 100px;
             border-radius: 100%;
@@ -40,6 +40,9 @@
             text-align: center;
             background-size: cover;
             /* background-image: url("../Assassine\ 1.jpg"); */
+        
+        i{
+            font-size: xx-large;
         }
         /* img{
             background-size: cover;
@@ -54,7 +57,7 @@
         <p>Welcome! @<%=userOne.username %></p>
         
         <div class="con-pro">
-            <div class="profile"><img></div>
+            <div class="profile"><i class="fa-regular fa-user"></i></div>
         </div>
         <br>
         <form method="get" action="/home/<%= userOne._id %>">
